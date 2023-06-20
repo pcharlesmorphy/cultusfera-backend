@@ -52,7 +52,7 @@ public class WriterServiceImpl implements IWriterService {
     }
 
     private Boolean checkDuplicatedWriter (Writer writer){
-         List<Writer> writers = findByName(writer.getName(), writer.getSurnames());
+         List<Writer> writers = writerRepo.findByNameEqualsIgnoreCaseAndSurnamesEqualsIgnoreCase(writer.getName(), writer.getSurnames());
          if (writers.isEmpty()){
              return false;
          }

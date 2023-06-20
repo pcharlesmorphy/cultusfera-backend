@@ -23,6 +23,9 @@ public class AlbumMapperImpl implements IAlbumMapper{
     @Autowired
     CopyMapperImpl copyMapper;
 
+    @Autowired
+    ReviewMapperImpl reviewMapper;
+
     @Override
     public Album dtoToEntity(AlbumDTO albumDTO) {
         Album album = new Album();
@@ -37,7 +40,10 @@ public class AlbumMapperImpl implements IAlbumMapper{
         if (albumDTO.getCopies() != null) {
             album.setCopies(copyMapper.dtoListToEntity(albumDTO.getCopies()));
         }
-
+        if (albumDTO.getReviews() != null){
+            album.setReviews(reviewMapper.dtoListToEntity(albumDTO.getReviews()));
+        }
+        album.setRating(album.getRating());
 
         return album;
     }
@@ -56,7 +62,10 @@ public class AlbumMapperImpl implements IAlbumMapper{
         if (album.getCopies() != null){
             albumDTO.setCopies(copyMapper.entityToDtoList(album.getCopies()));
         }
-
+        if (album.getReviews() != null){
+            albumDTO.setReviews(reviewMapper.entityToDtoList(album.getReviews()));
+        }
+        albumDTO.setRating(album.getRating());
         return albumDTO;
     }
 

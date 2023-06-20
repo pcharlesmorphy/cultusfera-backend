@@ -17,11 +17,17 @@ public class Resource {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name="title",nullable=true,length=45)
+    @Column(name="title",nullable=false,length=45)
     private String title;
 
-    @Column(name="publishedYear",nullable=true)
+    @Column(name="publishedYear",nullable=false)
     private Integer publishedYear;
+
+    @Column(name="rating",nullable=true)
+    private Double rating;
+
+    @Column(name="totalReviews",nullable = true)
+    private Integer totalReviews;
 
     @OneToMany(mappedBy ="resource",cascade = CascadeType.MERGE,fetch = FetchType.EAGER)
     @JsonBackReference
@@ -35,4 +41,6 @@ public class Resource {
 
     @Transient
     private ResourceType type;
+
+
 }

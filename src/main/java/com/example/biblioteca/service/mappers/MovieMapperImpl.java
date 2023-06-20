@@ -23,6 +23,9 @@ public class MovieMapperImpl implements IMovieMapper {
     @Autowired
     CopyMapperImpl copyMapper;
 
+    @Autowired
+    ReviewMapperImpl reviewMapper;
+
     @Override
     public Movie dtoToEntity(MovieDTO movieDTO) {
         Movie movie = new Movie();
@@ -39,6 +42,10 @@ public class MovieMapperImpl implements IMovieMapper {
         if (movieDTO.getCopies() != null) {
             movie.setCopies(copyMapper.dtoListToEntity(movieDTO.getCopies()));
         }
+        if (movieDTO.getReviews() != null){
+            movie.setReviews(reviewMapper.dtoListToEntity(movieDTO.getReviews()));
+        }
+        movie.setRating(movieDTO.getRating());
         return movie;
     }
 
@@ -58,7 +65,10 @@ public class MovieMapperImpl implements IMovieMapper {
         if (movie.getCopies() != null){
             movieDTO.setCopies(copyMapper.entityToDtoList(movie.getCopies()));
         }
-
+        if (movie.getReviews() != null){
+            movieDTO.setReviews(reviewMapper.entityToDtoList(movie.getReviews()));
+        }
+        movieDTO.setRating(movie.getRating());
         return movieDTO;
     }
 

@@ -1,12 +1,15 @@
 package com.example.biblioteca.service;
 
 import com.example.biblioteca.model.entity.*;
+import com.example.biblioteca.pojo.StatusCopyType;
+import com.example.biblioteca.pojo.TransactionStatusType;
 import com.example.biblioteca.repository.ICopyRepository;
 import com.example.biblioteca.repository.IStatusCopyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -35,6 +38,11 @@ public class CopyServiceImpl implements ICopyService{
     @Transactional
     @Override
     public Copy save(Copy copy) {
+        if (copy.getStatus().getStatus().equals(StatusCopyType.BAJA.getType())){
+            copy.setDismissalDate(LocalDate.now());
+        } else {
+            copy.setDismissalDate(null);
+        }
         return copyRepo.save(copy);
     }
 
@@ -43,9 +51,9 @@ public class CopyServiceImpl implements ICopyService{
     public Boolean delete(Long id) {
 
         Copy copy = findCopyById(id).get();
-        StatusCopy status = findStatusById(5L).get();
+        StatusCopy status = findStatusById(StatusCopyType.BAJA.getId()).get();
 
-        if (copy.getStatus().getStatus().equals("Baja")) return false;
+        if (copy.getStatus().getStatus().equals(StatusCopyType.BAJA.getType())) return false;
         copy.setStatus(status);
         return true;
     }
@@ -53,18 +61,23 @@ public class CopyServiceImpl implements ICopyService{
     @Transactional
     @Override
     public Copy update(Copy copy) {
+        if (copy.getStatus().getStatus().equals(StatusCopyType.BAJA.getType())){
+            copy.setDismissalDate(LocalDate.now());
+        } else {
+            copy.setDismissalDate(null);
+        }
         return copyRepo.save(copy);
     }
 
     @Transactional(readOnly = true)
     @Override
     public Optional<Copy> findCopyById(Long id) {
-        return Optional.ofNullable(copyRepo.findById(id)).orElse(null);
+        return Optional.of(copyRepo.findById(id)).orElse(null);
     }
 
     @Override
     public Optional<StatusCopy> findStatusById(Long id) {
-        return Optional.ofNullable(statusRepo.findById(id)).orElse(null);
+        return Optional.of(statusRepo.findById(id)).orElse(null);
     }
 
     @Transactional(readOnly = true)
@@ -79,7 +92,7 @@ public class CopyServiceImpl implements ICopyService{
         List<Transaction> transactions = copy.getTransactions();
         List<Transaction> activeTransactions = new ArrayList<>();
         for (Transaction t:transactions){
-            if (t.getStatus().getId() == 1){
+            if (t.getStatus().getId().equals(TransactionStatusType.PRESTAMO_EN_CURSO.getId())){
                 activeTransactions.add(t);
             }
         }
@@ -92,7 +105,8 @@ public class CopyServiceImpl implements ICopyService{
         List<Transaction> transactions = copy.getTransactions();
         List<Transaction> activeTransactions = new ArrayList<>();
         for (Transaction t:transactions){
-            if (t.getStatus().getId() == 2 || t.getStatus().getId() == 2){
+            if (t.getStatus().getId().equals(TransactionStatusType.PRESTAMO_FINALIZADO.getId())
+                    ||t.getStatus().getId().equals(TransactionStatusType.PRESTAMO_VENCIDO.getId())){
                 activeTransactions.add(t);
             }
         }

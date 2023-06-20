@@ -39,9 +39,9 @@ public class CopyMapperImpl implements ICopyMapper{
         copy.setLocation(locationMapper.dtoToEntity(copyDTO.getLocation()));
         copy.setStatus(statusCopyMapper.dtoToEntity(copyDTO.getStatus()));
         copy.setResource(resourceMapper.dtoToEntity(copyDTO.getResource()));
-        if (copyDTO.getTransactions() != null) {
+        /*if (copyDTO.getTransactions() != null) {
             copy.setTransactions(transactionMapper.dtoListToEntity(copyDTO.getTransactions()));
-        }
+        }*/
         return copy;
     }
 

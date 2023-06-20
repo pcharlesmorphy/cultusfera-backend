@@ -47,6 +47,7 @@ public class BookMapperImpl implements IBookMapper {
         if (bookDTO.getReviews() != null){
             book.setReviews(reviewMapper.dtoListToEntity(bookDTO.getReviews()));
         }
+        book.setRating(bookDTO.getRating());
 
         return book;
     }
@@ -71,6 +72,8 @@ public class BookMapperImpl implements IBookMapper {
         if (book.getReviews() != null){
             bookDTO.setReviews(reviewMapper.entityToDtoList(book.getReviews()));
         }
+
+        bookDTO.setRating(book.getRating());
 
         return bookDTO;
     }

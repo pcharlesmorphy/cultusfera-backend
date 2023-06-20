@@ -33,8 +33,8 @@ public class MusicianServiceImpl implements IMusicianService {
         return musicianRepo.findByNameContainingIgnoreCaseAndSurnamesContainingIgnoreCase(name,surnames);
     }
 
-
     @Override
+    @Transactional
     public Optional<Musician> save(Musician musician) {
         if (!checkDuplicatedMusician(musician)){
             return Optional.of(  musicianRepo.save(musician));
@@ -43,6 +43,7 @@ public class MusicianServiceImpl implements IMusicianService {
     }
 
     @Override
+    @Transactional
     public Optional<Musician> update(Musician musician) {
         if (!checkDuplicatedMusician(musician)){
             return Optional.of(  musicianRepo.save(musician));
@@ -51,7 +52,7 @@ public class MusicianServiceImpl implements IMusicianService {
     }
 
     private Boolean checkDuplicatedMusician (Musician musician){
-        List<Musician> musicians = findByName (musician.getName(),musician.getSurnames());
+        List<Musician> musicians = musicianRepo.findByNameEqualsIgnoreCaseAndSurnamesEqualsIgnoreCase(musician.getName(),musician.getSurnames());
         if (musicians.isEmpty()){
             return false;
         }
@@ -59,6 +60,7 @@ public class MusicianServiceImpl implements IMusicianService {
     }
 
     @Override
+    @Transactional
     public Boolean delete(Long id) {
         Optional<Musician> musician = findById(id);
         if (musician.isEmpty()) return false;
@@ -76,7 +78,7 @@ public class MusicianServiceImpl implements IMusicianService {
     @Override
     @Transactional(readOnly = true)
     public Optional<Musician> findById(Long id) {
-        return Optional.ofNullable(musicianRepo.findById(id)).orElse(null);
+        return Optional.of(musicianRepo.findById(id)).orElse(null);
     }
 
 

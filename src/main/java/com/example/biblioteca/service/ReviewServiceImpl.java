@@ -35,7 +35,10 @@ public class ReviewServiceImpl implements IReviewService {
     @Override
     @Transactional
     public Optional<Review> save(Review review) {
+
         if (!checkDuplicatedUserReviewForResource(review)){
+            Resource resource = calculateReviewAverageRating(review,"add");
+            resourceRepo.save(resource);
             return Optional.of(reviewRepo.save(review));
         }
         return Optional.empty();
@@ -44,10 +47,12 @@ public class ReviewServiceImpl implements IReviewService {
     @Override
     @Transactional
     public Optional<Review> update(Review review) {
-        if (!checkDuplicatedUserReviewForResource(review)){
-           return Optional.of(reviewRepo.save(review));
-        }
-        return Optional.empty();
+
+        Review oldReview = reviewRepo.findById(review.getId()).get();
+        Resource resource = calculateReviewAverageRating(oldReview,review);
+        resourceRepo.save(resource);
+        return Optional.of(reviewRepo.save(review));
+
     }
 
     private Boolean checkDuplicatedUserReviewForResource (Review review){
@@ -68,12 +73,49 @@ public class ReviewServiceImpl implements IReviewService {
         return false;
 
     }
-
     @Override
     public Boolean delete(Long id) {
         if (findById(id).isEmpty()) return false;
+        Review deletedReview = reviewRepo.getReferenceById(id);
+        Resource resource = calculateReviewAverageRating(deletedReview,"delete");
+        resourceRepo.save(resource);
         reviewRepo.deleteById(id);
         return true;
+    }
+
+    private Resource calculateReviewAverageRating (Review review, String operation){
+
+        Resource resource= resourceRepo.findById(review.getResource().getId()).get();
+        Double resourceAverageRating = resource.getRating();
+        Integer resourceTotalReviews = resource.getTotalReviews();
+        Integer resourceTotalRating = (int) (resourceAverageRating * resourceTotalReviews);
+        Integer newResourceTotalRating=0;
+
+        if (operation.equals("add")){
+            newResourceTotalRating = resourceTotalRating + review.getRating();
+            resourceTotalReviews++;
+        } else if (operation.equals("delete")){
+            newResourceTotalRating = resourceTotalRating - review.getRating();
+            resourceTotalReviews--;
+        }
+
+        Double newResourceAverageRating = (double) newResourceTotalRating / resourceTotalReviews;
+        resource.setRating(newResourceAverageRating);
+        resource.setTotalReviews(resourceTotalReviews);
+        return resource;
+    }
+
+    private Resource calculateReviewAverageRating (Review oldReview, Review newReview){
+        Resource resource= resourceRepo.findById(oldReview.getResource().getId()).get();
+        Double resourceAverageRating = resource.getRating();
+        Integer resourceTotalReviews = resource.getTotalReviews();
+        Integer resourceTotalRating = (int) (resourceAverageRating * resourceTotalReviews);
+
+        resourceTotalRating = resourceTotalRating - oldReview.getRating();
+        Integer newResourceTotalRating = resourceTotalRating + newReview.getRating();
+        Double newResourceAverageRating = (double) newResourceTotalRating / resource.getTotalReviews();
+        resource.setRating(newResourceAverageRating);
+        return resource;
     }
 
     @Override

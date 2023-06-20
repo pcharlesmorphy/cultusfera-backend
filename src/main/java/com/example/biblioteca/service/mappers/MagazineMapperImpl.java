@@ -26,6 +26,9 @@ public class MagazineMapperImpl implements IMagazineMapper{
     @Autowired
     CopyMapperImpl copyMapper;
 
+    @Autowired
+    ReviewMapperImpl reviewMapper;
+
     @Override
     public Magazine dtoToEntity(MagazineDTO magazineDTO) {
         Magazine magazine = new Magazine();
@@ -42,7 +45,10 @@ public class MagazineMapperImpl implements IMagazineMapper{
         if (magazineDTO.getCopies() != null){
             magazine.setCopies(copyMapper.dtoListToEntity(magazineDTO.getCopies()));
         }
-
+        if (magazineDTO.getReviews() != null){
+            magazine.setReviews(reviewMapper.dtoListToEntity(magazineDTO.getReviews()));
+        }
+        magazine.setRating(magazineDTO.getRating());
         return magazine;
     }
 
@@ -62,7 +68,10 @@ public class MagazineMapperImpl implements IMagazineMapper{
         if (magazine.getCopies() != null){
             magazineDTO.setCopies(copyMapper.entityToDtoList(magazine.getCopies()));
         }
-
+        if (magazine.getReviews() != null){
+            magazineDTO.setReviews(reviewMapper.entityToDtoList(magazine.getReviews()));
+        }
+        magazineDTO.setRating(magazine.getRating());
         return magazineDTO;
     }
 

@@ -16,7 +16,7 @@ public class Review {
     private Long id;
     @Column(name="date",nullable=false)
     private LocalDate date;
-    @Column(name="title",nullable=false,length = 40)
+    @Column(name="title",nullable=false,length = 150)
     public String title;
     @Lob
     @Column(name="comment",columnDefinition = "LONGTEXT",nullable=false)

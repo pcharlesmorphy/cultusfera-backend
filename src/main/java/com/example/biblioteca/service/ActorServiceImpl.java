@@ -2,6 +2,7 @@ package com.example.biblioteca.service;
 
 import com.example.biblioteca.model.entity.Actor;
 import com.example.biblioteca.model.entity.Movie;
+import com.example.biblioteca.model.entity.Musician;
 import com.example.biblioteca.repository.IActorRepository;
 import com.example.biblioteca.repository.IMovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;

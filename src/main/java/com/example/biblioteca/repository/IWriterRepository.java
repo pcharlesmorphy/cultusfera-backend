@@ -10,4 +10,6 @@ public interface IWriterRepository extends JpaRepository<Writer,Long> {
     List<Writer> findByNameContainingIgnoreCaseAndSurnamesContainingIgnoreCase(String name, String surnames);
     List<Writer> findByNameContainingIgnoreCase(String name);
     List<Writer> findBySurnamesContainingIgnoreCase(String surnames);
+
+    List<Writer> findByNameEqualsIgnoreCaseAndSurnamesEqualsIgnoreCase(String name, String surnames);
 }

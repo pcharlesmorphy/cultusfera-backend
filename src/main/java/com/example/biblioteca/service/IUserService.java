@@ -2,6 +2,7 @@ package com.example.biblioteca.service;
 
 import com.example.biblioteca.model.entity.Role;
 import com.example.biblioteca.model.entity.User;
+import com.example.biblioteca.model.entity.UserRole;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,5 +18,7 @@ public interface IUserService {
     List<User> findClientUsers ();
 
     Optional<User> findByName (String name, String surnames);
+
+    Optional<UserRole> findByType(String type);
 
 }

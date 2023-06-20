@@ -2,6 +2,7 @@ package com.example.biblioteca.service;
 
 import com.example.biblioteca.model.entity.Director;
 import com.example.biblioteca.model.entity.Movie;
+import com.example.biblioteca.model.entity.Musician;
 import com.example.biblioteca.repository.IDirectorRepository;
 import com.example.biblioteca.repository.IMovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,7 @@ public class DirectorServiceImpl implements IDirectorService{
     }
 
     @Override
+    @Transactional
     public Optional<Director> save(Director director) {
         if (!checkDuplicatedDirector(director)){
             return Optional.of(directorRepo.save(director));
@@ -35,6 +37,7 @@ public class DirectorServiceImpl implements IDirectorService{
 
 
     @Override
+    @Transactional
     public Optional<Director> update(Director director) {
         if (!checkDuplicatedDirector(director)){
             return Optional.of(directorRepo.save(director));
@@ -51,6 +54,7 @@ public class DirectorServiceImpl implements IDirectorService{
     }
 
     @Override
+    @Transactional
     public Boolean delete(Long id) {
         Optional<Director> director = findById(id);
         if (director.isEmpty()) return false;
@@ -68,7 +72,7 @@ public class DirectorServiceImpl implements IDirectorService{
     @Override
     @Transactional(readOnly = true)
     public Optional<Director> findById(Long id) {
-        return Optional.ofNullable(directorRepo.findById(id)).orElse(null);
+        return Optional.of(directorRepo.findById(id)).orElse(null);
     }
 
 

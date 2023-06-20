@@ -36,6 +36,8 @@ public class BookServiceImpl implements IBookService {
     @Transactional
     public Optional<Book> save(Book book) {
         if (!checkDuplicatedBooks(book)){
+            book.setRating(0.0);
+            book.setTotalReviews(0);
             return Optional.of(bookRepo.save(book));
         }
         return Optional.empty();

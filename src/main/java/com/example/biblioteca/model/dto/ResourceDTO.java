@@ -16,5 +16,6 @@ public class ResourceDTO {
     private ResourceType type;
     private List<CopyDTO> copies;
     private List<ReviewDTO> reviews;
+    private Double rating;
 
 }

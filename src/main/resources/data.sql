@@ -1,8 +1,3 @@
-/*--Diseño de las tabla de la BBDD*/
-
-/*Comentarios multilinea
-  se ponen asi
- */
 
 
 INSERT INTO record_company (name) VALUES ('Universal Music Group');
@@ -158,16 +153,16 @@ INSERT INTO status_copy (type) VALUES ('Prestado');
 INSERT INTO status_copy (type) VALUES ('Perdido');
 INSERT INTO status_copy (type) VALUES ('Baja');
 
-INSERT INTO resource (published_year,title) VALUES (1970,'Cien años de soledad');
+INSERT INTO resource (published_year,title,rating,total_reviews) VALUES (1970,'Cien años de soledad',0.0,0);
 INSERT INTO book (id,isbn,pages,id_genre,id_idioma,id_publisher) VALUES (1,18298192,200,5,1,1);
 INSERT INTO book_writer (id_writer,id_book) VALUES (1,1);
-INSERT INTO resource (published_year,title) VALUES (1986,'Master of Puppets');
+INSERT INTO resource (published_year,title,rating,total_reviews) VALUES (1986,'Master of Puppets',0.0,0);
 INSERT INTO album (duration,id_resource,id_genre,id_musician,id_record_company) VALUES (75,2,1,14,2);
-INSERT INTO resource (published_year,title) VALUES (1989,'Indiana Jones y la Última Cruzada');
+INSERT INTO resource (published_year,title,rating,total_reviews) VALUES (1989,'Indiana Jones y la Última Cruzada',0.0,0);
 INSERT INTO movie (id,duration,id_director,id_genre,id_language) VALUES (3,127,16,10,1);
 INSERT INTO movie_actor (id_movie,id_actor) VALUES (3,7);
 INSERT INTO movie_actor (id_movie,id_actor) VALUES (3,10);
-INSERT INTO resource (published_year,title) VALUES (2018,'Muy Interesante');
+INSERT INTO resource (published_year,title,rating,total_reviews) VALUES (2018,'Muy Interesante',0.0,0);
 INSERT INTO magazine (id,number,pages,id_language,id_month,id_publisher,id_subject) VALUES (4,310,120,1,6,5,5);
 
 
@@ -183,26 +178,24 @@ INSERT INTO user_role (type) VALUES ('Librarian');
 INSERT INTO user_role (type) VALUES ('User');
 
 INSERT INTO user (address,email,name,surnames,nif,phone,registration_date,username,password,id_user_role)
-VALUES ('a','admin@mail.com','Paco','Jones','11111111A',1,'2023-01-01','admin','GS2eDNcu0Ag8YZnctqI2JXkpej1DyS/VS/d7nR725YQ+DZ0W36KHS2iBtQFKRjzV',1);
+VALUES ('a','admin@mail.com','Paco','Jones','11111111A',600100200,'2023-01-01','admin','GS2eDNcu0Ag8YZnctqI2JXkpej1DyS/VS/d7nR725YQ+DZ0W36KHS2iBtQFKRjzV',1);
 INSERT INTO user (address,email,name,surnames,nif,phone,registration_date,username,password,id_user_role)
-VALUES ('a','admin@mail.com','Jose','Alcaide','22222222B',1,'2023-01-01','librarian','GS2eDNcu0Ag8YZnctqI2JXkpej1DyS/VS/d7nR725YQ+DZ0W36KHS2iBtQFKRjzV',2);
+VALUES ('a','admin@mail.com','Jose','Alcaide','22222222B',605241121,'2023-01-01','librarian','GS2eDNcu0Ag8YZnctqI2JXkpej1DyS/VS/d7nR725YQ+DZ0W36KHS2iBtQFKRjzV',2);
 INSERT INTO user (address,email,name,surnames,nif,phone,registration_date,username,password,id_user_role)
-VALUES ('a','sergeitorres@gmail.com','Juan','Garcia','33333333C',1,'2023-01-01','jgarcia','GS2eDNcu0Ag8YZnctqI2JXkpej1DyS/VS/d7nR725YQ+DZ0W36KHS2iBtQFKRjzV',3);
+VALUES ('a','sergeitorres@gmail.com','Juan','Garcia','33333333C',621912311,'2023-01-01','jgarcia','GS2eDNcu0Ag8YZnctqI2JXkpej1DyS/VS/d7nR725YQ+DZ0W36KHS2iBtQFKRjzV',3);
 INSERT INTO user (address,email,name,surnames,nif,phone,registration_date,username,password,id_user_role)
-VALUES ('a','sergeitorres@gmail.com','Pedro','Ramirez','44444444D',1,'2023-01-01','pramirez','GS2eDNcu0Ag8YZnctqI2JXkpej1DyS/VS/d7nR725YQ+DZ0W36KHS2iBtQFKRjzV',3);
+VALUES ('a','sergeitorres@gmail.com','Pedro','Ramirez','44444444D',630129816,'2023-01-01','pramirez','GS2eDNcu0Ag8YZnctqI2JXkpej1DyS/VS/d7nR725YQ+DZ0W36KHS2iBtQFKRjzV',3);
 INSERT INTO user (address,email,name,surnames,nif,phone,registration_date,username,password,id_user_role)
-VALUES ('a','sergeitorres@gmail.com','Sergi','Torres','40300550R',1,'2023-01-01','storres','GS2eDNcu0Ag8YZnctqI2JXkpej1DyS/VS/d7nR725YQ+DZ0W36KHS2iBtQFKRjzV',3);
+VALUES ('a','sergeitorres@gmail.com','Sergi','Torres','40300550R',645091238,'2023-01-01','storres','GS2eDNcu0Ag8YZnctqI2JXkpej1DyS/VS/d7nR725YQ+DZ0W36KHS2iBtQFKRjzV',3);
 INSERT INTO user (address,email,name,surnames,nif,phone,registration_date,username,password,id_user_role)
-VALUES ('a','sergeitorres@gmail.com','Ana','Gonzalez','42321324L',1,'2023-01-01','agonzalez','GS2eDNcu0Ag8YZnctqI2JXkpej1DyS/VS/d7nR725YQ+DZ0W36KHS2iBtQFKRjzV',3);
+VALUES ('a','sergeitorres@gmail.com','Ana','Gonzalez','42321324L',652097139,'2023-01-01','agonzalez','GS2eDNcu0Ag8YZnctqI2JXkpej1DyS/VS/d7nR725YQ+DZ0W36KHS2iBtQFKRjzV',3);
 
-/*Datos Préstamos Recursos */
 INSERT INTO transaction_status (type) VALUES ("Prestamo en curso");
 INSERT INTO transaction_status (type) VALUES ("Prestamo finalizado");
 INSERT INTO transaction_status (type) VALUES ("Prestamo vencido");
 INSERT INTO transaction_status (type) VALUES ("Reserva en curso");
 INSERT INTO transaction_status (type) VALUES ("Reserva finalizada");
 
-INSERT INTO transaction (type,start_date,end_date,id_copy,id_status,id_user) VALUES (2,'2023-05-23','2023-06-05',1,1,3);
 
 
 

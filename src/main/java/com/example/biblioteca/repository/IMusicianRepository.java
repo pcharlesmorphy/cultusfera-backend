@@ -10,4 +10,6 @@ public interface IMusicianRepository extends JpaRepository<Musician,Long> {
     List<Musician> findByNameContainingIgnoreCaseAndSurnamesContainingIgnoreCase(String name, String surnames);
     List<Musician> findByNameContainingIgnoreCase(String name);
     List<Musician> findBySurnamesContainingIgnoreCase(String surnames);
+
+    List<Musician> findByNameEqualsIgnoreCaseAndSurnamesEqualsIgnoreCase (String name, String surnames);
 }

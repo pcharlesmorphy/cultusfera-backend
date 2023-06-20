@@ -31,14 +31,18 @@ public class MovieServiceImpl implements IMovieService {
     }
 
     @Override
+    @Transactional
     public Optional<Movie> save(Movie movie) {
         if (!checkDuplicatedMovies(movie)){
+            movie.setRating(0.0);
+            movie.setTotalReviews(0);
             return Optional.of(movieRepo.save(movie));
         }
         return Optional.empty();
     }
 
     @Override
+    @Transactional
     public Optional<Movie> update(Movie movie) {
         if (!checkDuplicatedMovies(movie)){
             return Optional.of(movieRepo.save(movie));
@@ -66,6 +70,7 @@ public class MovieServiceImpl implements IMovieService {
 
 
     @Override
+    @Transactional
     public Boolean delete(Long id) {
         Optional<Movie> movie = findById(id);
         if (movie.isEmpty()) return false;
@@ -102,11 +107,13 @@ public class MovieServiceImpl implements IMovieService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Movie> findByTitleContainsIgnoreCase(String title) {
         return movieRepo.findByTitleContainsIgnoreCase(title);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Movie> findMovieByDirector(String name, String surnames) {
         List<Director> directors = new ArrayList<Director>();
         List<Movie> movies = new ArrayList<Movie>();
@@ -125,6 +132,7 @@ public class MovieServiceImpl implements IMovieService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Movie> findMovieByActor(String name, String surnames) {
         List<Actor> actors = new ArrayList<Actor>();
         List<Movie> movies = new ArrayList<Movie>();
@@ -143,11 +151,13 @@ public class MovieServiceImpl implements IMovieService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Movie> findMovieByGenre(MovieGenre genre) {
         return movieRepo.findAllByGenre(genre);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Movie> findMovieByLanguage(Language language) {
         return movieRepo.findAllByLanguage(language);
     }

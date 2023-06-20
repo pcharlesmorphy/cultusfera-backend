@@ -31,8 +31,8 @@ public class UserServiceImpl implements IUserService{
     @Override
     @Transactional(readOnly = true)
     public List<User> findClientUsers (){
-        UserRole role = userRoleRepo.findByType("User").get();
-        return userRepo.findUsersByRole(role);
+        Optional<UserRole> role = findByType("User");
+        return userRepo.findUsersByRole(role.get());
     }
 
     @Override
@@ -73,6 +73,10 @@ public class UserServiceImpl implements IUserService{
         return Optional.ofNullable(userRepo.findByNameContainingIgnoreCaseAndSurnamesContainingIgnoreCase(name,surnames).orElse(null));
     }
 
-
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<UserRole> findByType(String type){
+        return userRoleRepo.findByType(type);
+    }
 
 }

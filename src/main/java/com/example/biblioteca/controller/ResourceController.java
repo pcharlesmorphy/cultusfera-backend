@@ -145,6 +145,14 @@ public class ResourceController {
 
     }
 
+    @GetMapping("/copia/{id}")
+    public ResponseEntity <CopyDTO> getCopyById (@PathVariable ("id") Long id){
+        if (copyService.findCopyById(id).isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok().body(copyMapper.entityToDto(copyService.findCopyById(id).get()));
+    }
+
     @GetMapping("/historicos/{titulo}")
     public ResponseEntity <List<FrontendTransactionDTO>> getHistoricalByResource (@PathVariable ("titulo") String title){
 

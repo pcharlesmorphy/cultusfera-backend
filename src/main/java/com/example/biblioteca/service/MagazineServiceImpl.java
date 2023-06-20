@@ -25,6 +25,8 @@ public class MagazineServiceImpl implements IMagazineService {
     @Transactional
     public Optional<Magazine> save(Magazine magazine) {
         if (!checkDuplicatedMagazines(magazine)){
+            magazine.setRating(0.0);
+            magazine.setTotalReviews(0);
             return Optional.of(magazineRepo.save(magazine));
         }
         return Optional.empty();
@@ -58,6 +60,7 @@ public class MagazineServiceImpl implements IMagazineService {
 
 
     @Override
+    @Transactional
     public Boolean delete(Long id) {
         Optional<Magazine> magazine = findById(id);
         if (magazine.isEmpty()) return false;

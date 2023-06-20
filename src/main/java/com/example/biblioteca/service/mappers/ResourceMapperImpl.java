@@ -22,6 +22,7 @@ public class ResourceMapperImpl implements IResourceMapper{
         resource.setPublishedYear(resourceDTO.getPublishedYear());
         resource.setType(resourceDTO.getType());
         //resource.setCopies(copyMapper.dtoListToEntity(resourceDTO.getCopies()));
+        resource.setRating(resourceDTO.getRating());
         return resource;
     }
 
@@ -33,6 +34,7 @@ public class ResourceMapperImpl implements IResourceMapper{
         resourceDTO.setPublishedYear(resource.getPublishedYear());
         resourceDTO.setType(resource.getType());
         //resourceDTO.setCopies(copyMapper.entityToDtoList(resource.getCopies()));
+        resourceDTO.setRating(resource.getRating());
         return resourceDTO;
     }
 

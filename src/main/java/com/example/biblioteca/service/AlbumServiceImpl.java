@@ -30,6 +30,8 @@ public class AlbumServiceImpl implements IAlbumService {
     @Transactional
     public Optional<Album> save(Album album){
         if (!checkDuplicatedAlbums(album)){
+            album.setRating(0.0);
+            album.setTotalReviews(0);
             return Optional.of(albumRepo.save(album));
         }
         return Optional.empty();
@@ -80,22 +82,25 @@ public class AlbumServiceImpl implements IAlbumService {
 
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public Optional<Album> findById (Long id){
         return Optional.ofNullable(albumRepo.findById(id).orElse(null));
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Album> findByTitleContainsIgnoreCase(String title) {
         return albumRepo.findByTitleContainsIgnoreCase(title);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Album> findAllByMusicians(Musician musician) {
         return albumRepo.findAllByMusician(musician);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Album> findAlbumByMusician(String name, String surnames) {
         List<Musician> musicians = new ArrayList<Musician>();
         List<Album> albums = new ArrayList<Album>();
@@ -115,6 +120,7 @@ public class AlbumServiceImpl implements IAlbumService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Album> findAlbumByGenre(MusicGenre genre) {
         return albumRepo.findAllByGenre(genre);
     }
