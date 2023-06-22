@@ -38,6 +38,7 @@ public class UserServiceImpl implements IUserService{
     @Override
     @Transactional
     public User save(User user) {
+        user.setSuspended(false);
         return userRepo.save(user);
     }
 

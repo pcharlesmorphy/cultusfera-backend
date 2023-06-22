@@ -17,6 +17,9 @@ public class UserMapperImpl implements IUserMapper{
     @Autowired
     TransactionMapperImpl transactionMapper;
 
+    @Autowired
+    PenaltyMapperImpl penaltyMapper;
+
     @Override
     public User dtoToEntity(UserDTO userDTO) {
         User user = new User();
@@ -34,6 +37,8 @@ public class UserMapperImpl implements IUserMapper{
         }
         user.setRegistrationDate(userDTO.getRegistrationDate());
         user.setRole(userRoleMapper.dtoToEntity(userDTO.getRole()));
+
+        user.setSuspended(userDTO.isSuspended());
         return user;
     }
 
@@ -53,6 +58,8 @@ public class UserMapperImpl implements IUserMapper{
         if (user.getTransactions() != null) {
             userDTO.setTransactions(transactionMapper.entityToDtoList(user.getTransactions()));
         }
+
+        userDTO.setSuspended(user.isSuspended());
         userDTO.setRole(userRoleMapper.entityToDto(user.getRole()));
         return userDTO;
     }

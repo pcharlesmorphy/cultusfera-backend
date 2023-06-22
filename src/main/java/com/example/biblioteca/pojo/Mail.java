@@ -11,10 +11,10 @@ public class Mail {
     private String username;
     private String titleResource;
 
-    public Mail (String userMail,String message){
+    public Mail (String userMail,String subject,String message){
         this.libraryMail = "cultusfera@outlook.es";
         this.userMail = userMail;
-        this.subject = "Aviso: Vencimiento de préstamo";
+        this.subject = subject;
         this.message = message;
     }
 }

@@ -1,19 +1,13 @@
 package com.example.biblioteca.controller;
 
-import com.example.biblioteca.model.dto.BookDTO;
-import com.example.biblioteca.model.dto.ReviewDTO;
-import com.example.biblioteca.model.dto.TransactionDTO;
-import com.example.biblioteca.model.dto.UserDTO;
+import com.example.biblioteca.model.dto.*;
 import com.example.biblioteca.model.dto.frontend.FrontendTransactionDTO;
 import com.example.biblioteca.model.dto.frontend.FrontendUserDTO;
 import com.example.biblioteca.model.entity.Loan;
 import com.example.biblioteca.model.entity.Resource;
 import com.example.biblioteca.model.entity.Transaction;
 import com.example.biblioteca.model.entity.User;
-import com.example.biblioteca.service.ResourceServiceImpl;
-import com.example.biblioteca.service.ReviewServiceImpl;
-import com.example.biblioteca.service.TransactionServiceImpl;
-import com.example.biblioteca.service.UserServiceImpl;
+import com.example.biblioteca.service.*;
 import com.example.biblioteca.service.mappers.*;
 import com.example.biblioteca.service.mappers.frontend.IFrontendTransactionMapper;
 import com.example.biblioteca.util.Utils;
@@ -59,6 +53,12 @@ public class UserController {
 
     @Autowired
     ReviewServiceImpl reviewService;
+
+    @Autowired
+    PenaltyServiceImpl penaltyService;
+
+    @Autowired
+    PenaltyMapperImpl penaltyMapper;
 
     @PostMapping
     public ResponseEntity createUser (@RequestBody UserDTO userDTO){
@@ -209,6 +209,21 @@ public class UserController {
         return ResponseEntity.ok().body(frontendUserMapper.entityToDto(userService.findById(id).get()));
     }
 
+    @GetMapping("/sanciones/{id}")
+    public ResponseEntity<List<PenaltyDTO>> findPenaltyByUser(@PathVariable ("id") Long id){
+        Optional<User> user = userService.findById(id);
+        if (user.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
+        penaltyService.findByUser(user.get());
+        return ResponseEntity.ok(penaltyMapper.entityToDtoList(penaltyService.findByUser(user.get())));
+    }
+
+    @PostMapping("/sanciones")
+    public ResponseEntity addUserPenalty (@RequestBody PenaltyDTO penalty){
+        penaltyService.save(penaltyMapper.dtoToEntity(penalty));
+        return ResponseEntity.ok().build();
+    }
 }
 
 

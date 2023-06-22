@@ -60,6 +60,12 @@ public class TransactionServiceImpl implements ITransactionService{
 
         Long loanCopyId = loan.getCopy().getId();
         Long loanUserId = loan.getUser().getId();
+
+        //Si el usuario está suspendido no puede hacer préstamos
+
+        if (loan.getUser().isSuspended()){
+            return false;
+        }
         if (!booking.isEmpty()){
             Long bookingUserId = booking.get().getUser().getId();
             //El estado es Reservado y ademas el usuario que hace el prestamo es igual al de la reserva
@@ -132,6 +138,10 @@ public class TransactionServiceImpl implements ITransactionService{
         Long bookingCopyId = booking.getCopy().getId();
         Long bookingUserId = booking.getUser().getId();
 
+        //Si el usuario está suspendido no puede hacer ninguna reserva
+        if (booking.getUser().isSuspended()){
+            return false;
+        }
         //No se puede reservar si el estado de la copia no es Prestado
         if (!bookingCopy.getStatus().getStatus().equals(StatusCopyType.PRESTADO.getType())){
             return false;
@@ -336,8 +346,9 @@ public class TransactionServiceImpl implements ITransactionService{
     public void createLoanExpirationNotificationMail (Transaction transaction) {
 
         String userMail = transaction.getUser().getEmail();
+        String subject = "Aviso: Vencimiento de préstamo";
         String message = createLoanExpirationMailMessage(transaction);
-        Mail mail = new Mail (userMail,message);
+        Mail mail = new Mail (userMail,subject,message);
         emailService.sendUserExpirationWarningMail(mail);
     }
 
@@ -356,8 +367,9 @@ public class TransactionServiceImpl implements ITransactionService{
     public void createBookingExpirationNotificationMail (Transaction transaction){
 
         String userMail = transaction.getUser().getEmail();
+        String subject = "Aviso: Puedes recoger tu reserva";
         String message = createBookingExpirationMailMessage(transaction);
-        Mail mail = new Mail (userMail,message);
+        Mail mail = new Mail (userMail,subject,message);
         emailService.sendUserExpirationWarningMail(mail);
     }
 

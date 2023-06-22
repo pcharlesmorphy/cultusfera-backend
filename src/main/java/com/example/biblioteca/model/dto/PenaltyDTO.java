@@ -15,5 +15,4 @@ public class PenaltyDTO {
     private String comments;
     private UserDTO user;
     private LoanDTO loan;
-
 }

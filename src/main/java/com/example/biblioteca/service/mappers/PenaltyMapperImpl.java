@@ -30,8 +30,9 @@ public class PenaltyMapperImpl implements IPenaltyMapper{
         penalty.setStatus(penaltyDTO.isStatus());
         penalty.setComments(penaltyDTO.getComments());
         penalty.setUser(userMapper.dtoToEntity(penaltyDTO.getUser()));
-        penalty.setLoan(loanMapper.dtoToEntity(penaltyDTO.getLoan()));
-
+        if (penaltyDTO.getLoan() != null) {
+            penalty.setLoan(loanMapper.dtoToEntity(penaltyDTO.getLoan()));
+        }
         return penalty;
     }
 
@@ -45,8 +46,9 @@ public class PenaltyMapperImpl implements IPenaltyMapper{
         penaltyDTO.setStatus(penalty.isStatus());
         penaltyDTO.setComments(penalty.getComments());
         penaltyDTO.setUser(userMapper.entityToDto(penalty.getUser()));
-        penaltyDTO.setLoan(loanMapper.entityToDto(penalty.getLoan()));
-
+        if (penalty.getLoan() != null) {
+            penaltyDTO.setLoan(loanMapper.entityToDto(penalty.getLoan()));
+        }
         return penaltyDTO;
     }
 

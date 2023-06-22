@@ -1,5 +1,6 @@
 package com.example.biblioteca.model.dto.frontend;
 
+import com.example.biblioteca.model.dto.PenaltyDTO;
 import com.example.biblioteca.model.dto.TransactionDTO;
 import com.example.biblioteca.model.dto.UserRoleDTO;
 import lombok.Data;
@@ -20,4 +21,7 @@ public class FrontendUserDTO {
     private LocalDate registrationDate;
     private UserRoleDTO role;
     private List<TransactionDTO> transactions;
+    private List<PenaltyDTO> penalties;
+    private boolean suspended;
+
 }

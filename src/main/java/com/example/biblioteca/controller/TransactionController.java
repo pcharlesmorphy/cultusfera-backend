@@ -69,7 +69,7 @@ public class TransactionController {
         loan.setCopy(copy);
         Optional<Loan> saveLoan = transactionService.saveLoan(loan);
         if (saveLoan.isEmpty()){
-            String message = "El usuario ha alcanzado el máximo permitido de 5 prestamos en curso. ";
+            String message = "El usuario no puede realizar préstamos: Está sancionado o bien ha alcanzado el máximo permitido de 5 préstamos en curso. ";
             return ResponseEntity.badRequest().body(message);
         }
 
@@ -99,7 +99,7 @@ public class TransactionController {
         booking.setCopy(copy);
         Optional<Booking> saveBooking = transactionService.saveBooking(booking);
         if (saveBooking.isEmpty()){
-            String message = "No se puede hacer reserva a un usuario con préstamo en curso";
+            String message = "No se puede reservar: Usuario con préstamo en curso o usuario sancionado.";
             return ResponseEntity.badRequest().body(message);
         }
         return ResponseEntity.ok().build();

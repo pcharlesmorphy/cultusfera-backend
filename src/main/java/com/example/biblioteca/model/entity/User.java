@@ -36,6 +36,8 @@ public class User {
     private String password;
     @Column(name="registrationDate",nullable=false)
     private LocalDate registrationDate;
+    @Column(name="suspended",nullable = false)
+    private boolean suspended;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @Cascade(CascadeType.SAVE_UPDATE)
@@ -53,4 +55,10 @@ public class User {
     @OneToMany(mappedBy = "user",cascade = jakarta.persistence.CascadeType.MERGE)
     @ToString.Exclude
     private List<Transaction> transactions;
+
+    @JsonBackReference
+    @OneToMany(mappedBy = "user",cascade = jakarta.persistence.CascadeType.MERGE)
+    @ToString.Exclude
+    private List<Penalty> penalties;
+
 }

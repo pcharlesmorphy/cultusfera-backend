@@ -16,6 +16,9 @@ public class FrontendUserMapperImpl implements IFrontendUserMapper{
     @Autowired
     TransactionMapperImpl transactionMapper;
 
+    @Autowired
+    PenaltyMapperImpl penaltyMapper;
+
     @Override
     public User dtoToEntity(FrontendUserDTO userDTO) {
         User user = new User();
@@ -30,6 +33,10 @@ public class FrontendUserMapperImpl implements IFrontendUserMapper{
         user.setTransactions(transactionMapper.dtoListToEntity(userDTO.getTransactions()));
         user.setRegistrationDate(userDTO.getRegistrationDate());
         user.setRole(userRoleMapper.dtoToEntity(userDTO.getRole()));
+        if (userDTO.getPenalties()!=null){
+            user.setPenalties(penaltyMapper.dtoListToEntity(userDTO.getPenalties()));
+        }
+        user.setSuspended(userDTO.isSuspended());
         return user;
     }
 
@@ -47,6 +54,10 @@ public class FrontendUserMapperImpl implements IFrontendUserMapper{
         userDTO.setRegistrationDate(user.getRegistrationDate());
         userDTO.setTransactions(transactionMapper.entityToDtoList(user.getTransactions()));
         userDTO.setRole(userRoleMapper.entityToDto(user.getRole()));
+        if (user.getPenalties()!=null){
+            userDTO.setPenalties(penaltyMapper.entityToDtoList(user.getPenalties()));
+        }
+        userDTO.setSuspended(user.isSuspended());
         return userDTO;
     }
 

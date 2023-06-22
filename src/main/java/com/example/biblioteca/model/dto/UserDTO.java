@@ -1,5 +1,6 @@
 package com.example.biblioteca.model.dto;
 
+import com.example.biblioteca.model.entity.Penalty;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -20,5 +21,7 @@ public class UserDTO {
     private LocalDate registrationDate;
     private UserRoleDTO role;
     private List<TransactionDTO> transactions;
+    private List<PenaltyDTO> penalties;
+    private boolean suspended;
 
 }
