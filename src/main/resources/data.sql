@@ -182,13 +182,13 @@ VALUES ('Gran Via 320 5 1','admin@mail.com','Francisco','Pérez','11111111A',600
 INSERT INTO user (address,email,name,surnames,nif,phone,registration_date,username,password,suspended,id_user_role)
 VALUES ('Muntaner 300 2 2','admin@mail.com','Jose','Alcaide','22222222B',605241121,'2023-01-01','librarian','GS2eDNcu0Ag8YZnctqI2JXkpej1DyS/VS/d7nR725YQ+DZ0W36KHS2iBtQFKRjzV',0,2);
 INSERT INTO user (address,email,name,surnames,nif,phone,registration_date,username,password,suspended,id_user_role)
-VALUES ('Balmes 121 1 1','sergeitorres@gmail.com','Juan','Garcia','33333333C',621912311,'2023-01-01','jgarcia','GS2eDNcu0Ag8YZnctqI2JXkpej1DyS/VS/d7nR725YQ+DZ0W36KHS2iBtQFKRjzV',0,3);
+VALUES ('Balmes 121 1 1','pcharlesmorphy@uoc.edu','Juan','Garcia','33333333C',621912311,'2023-01-01','jgarcia','GS2eDNcu0Ag8YZnctqI2JXkpej1DyS/VS/d7nR725YQ+DZ0W36KHS2iBtQFKRjzV',0,3);
 INSERT INTO user (address,email,name,surnames,nif,phone,registration_date,username,password,suspended,id_user_role)
-VALUES ('Sepúlveda 200 6 2','sergeitorres@gmail.com','Pedro','Ramirez','44444444D',630129816,'2023-01-01','pramirez','GS2eDNcu0Ag8YZnctqI2JXkpej1DyS/VS/d7nR725YQ+DZ0W36KHS2iBtQFKRjzV',0,3);
+VALUES ('Sepúlveda 200 6 2','pcharlesmorphy@uoc.edu','Pedro','Ramirez','44444444D',630129816,'2023-01-01','pramirez','GS2eDNcu0Ag8YZnctqI2JXkpej1DyS/VS/d7nR725YQ+DZ0W36KHS2iBtQFKRjzV',0,3);
 INSERT INTO user (address,email,name,surnames,nif,phone,registration_date,username,password,suspended,id_user_role)
-VALUES ('Blai 12 Atico 1','sergeitorres@gmail.com','Sergi','Torres','40300550R',645091238,'2023-01-01','storres','GS2eDNcu0Ag8YZnctqI2JXkpej1DyS/VS/d7nR725YQ+DZ0W36KHS2iBtQFKRjzV',0,3);
+VALUES ('Blai 12 Atico 1','pcharlesmorphy@uoc.edu','Sergi','Torres','40300550R',645091238,'2023-01-01','storres','GS2eDNcu0Ag8YZnctqI2JXkpej1DyS/VS/d7nR725YQ+DZ0W36KHS2iBtQFKRjzV',0,3);
 INSERT INTO user (address,email,name,surnames,nif,phone,registration_date,username,password,suspended,id_user_role)
-VALUES ('Sicilia 20 4 1','sergeitorres@gmail.com','Ana','Gonzalez','42321324L',652097139,'2023-01-01','agonzalez','GS2eDNcu0Ag8YZnctqI2JXkpej1DyS/VS/d7nR725YQ+DZ0W36KHS2iBtQFKRjzV',0,3);
+VALUES ('Sicilia 20 4 1','pcharlesmorphy@uoc.edu','Ana','Gonzalez','42321324L',652097139,'2023-01-01','agonzalez','GS2eDNcu0Ag8YZnctqI2JXkpej1DyS/VS/d7nR725YQ+DZ0W36KHS2iBtQFKRjzV',0,3);
 
 INSERT INTO transaction_status (type) VALUES ("Prestamo en curso");
 INSERT INTO transaction_status (type) VALUES ("Prestamo finalizado");
