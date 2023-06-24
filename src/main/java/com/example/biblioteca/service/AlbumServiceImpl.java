@@ -40,10 +40,24 @@ public class AlbumServiceImpl implements IAlbumService {
     @Override
     @Transactional
     public Optional<Album> update (Album album){
-        if (!checkDuplicatedAlbums(album)){
+        if (!checkDuplicatedAlbumsOnUpdate(album)){
             return Optional.of(albumRepo.save(album));
         }
         return Optional.empty();
+    }
+
+    private Boolean checkDuplicatedAlbumsOnUpdate (Album album){
+        Album currentAlbum = findById(album.getId()).get();
+        if (currentAlbum.getTitle().equalsIgnoreCase(album.getTitle())){
+            if (currentAlbum.getRecordCompany().getName().equals(album.getRecordCompany().getName())) {
+                if (currentAlbum.getMusician().getName().equals(album.getMusician().getName())) {
+                    if (currentAlbum.getMusician().getSurnames().equals(album.getMusician().getSurnames())){
+                        return false;
+                    }
+                }
+            }
+        }
+        return checkDuplicatedAlbums(album);
     }
 
     private Boolean checkDuplicatedAlbums (Album album){

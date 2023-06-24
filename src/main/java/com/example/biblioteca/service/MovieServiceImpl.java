@@ -44,11 +44,26 @@ public class MovieServiceImpl implements IMovieService {
     @Override
     @Transactional
     public Optional<Movie> update(Movie movie) {
-        if (!checkDuplicatedMovies(movie)){
+        if (!checkDuplicatedMoviesOnUpdate(movie)){
             return Optional.of(movieRepo.save(movie));
         }
         return Optional.empty();
     }
+
+    private Boolean checkDuplicatedMoviesOnUpdate (Movie movie){
+        Movie currentMovie = findById(movie.getId()).get();
+        if (currentMovie.getTitle().equalsIgnoreCase(movie.getTitle())){
+            if (currentMovie.getDirector().getName().equalsIgnoreCase(movie.getDirector().getName())){
+                if (currentMovie.getDirector().getSurnames().equalsIgnoreCase(movie.getDirector().getSurnames())) {
+                    return false;
+                }
+            }
+        }
+        return checkDuplicatedMovies(movie);
+
+
+    }
+
 
     private Boolean checkDuplicatedMovies (Movie movie){
 
@@ -59,8 +74,8 @@ public class MovieServiceImpl implements IMovieService {
         }
 
         for (Movie m:movies) {
-            if (movie.getDirector().getName().equals(m.getDirector().getName())){
-                if (movie.getDirector().getSurnames().equals(m.getDirector().getSurnames())) {
+            if (movie.getDirector().getName().equalsIgnoreCase(m.getDirector().getName())){
+                if (movie.getDirector().getSurnames().equalsIgnoreCase(m.getDirector().getSurnames())) {
                     return true;
                 }
             }

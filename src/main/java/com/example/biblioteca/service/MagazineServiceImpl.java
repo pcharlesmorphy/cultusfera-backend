@@ -35,12 +35,21 @@ public class MagazineServiceImpl implements IMagazineService {
     @Override
     @Transactional
     public Optional<Magazine> update(Magazine magazine) {
-        if (!checkDuplicatedMagazines(magazine)){
+        if (!checkDuplicatedMagazinesOnUpdate(magazine)){
             return Optional.of(magazineRepo.save(magazine));
         }
         return Optional.empty();
     }
 
+    private Boolean checkDuplicatedMagazinesOnUpdate (Magazine magazine){
+        Magazine currentMagazine = findById(magazine.getId()).get();
+        if (currentMagazine.getTitle().equalsIgnoreCase(magazine.getTitle())){
+            if (magazine.getNumber().equals(magazine.getNumber())){
+                return false;
+            }
+        }
+        return checkDuplicatedMagazines(magazine);
+    }
 
     private Boolean checkDuplicatedMagazines (Magazine magazine){
 

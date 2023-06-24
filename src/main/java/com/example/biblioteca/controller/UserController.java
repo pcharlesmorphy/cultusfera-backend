@@ -107,10 +107,11 @@ public class UserController {
 
     @PutMapping
     public ResponseEntity<UserDTO>updateUser(@RequestBody UserDTO userDTO){
-
-        if(userService.findById(userDTO.getId()).isEmpty()){
+        Optional<User> user= userService.findById(userDTO.getId());
+        if(user.isEmpty()){
             return ResponseEntity.notFound().build();
         }
+        userDTO.setPassword(user.get().getPassword());
         userDTO = userMapper.entityToDto(userService.update(userMapper.dtoToEntity(userDTO)));
         return ResponseEntity.ok().body(userDTO);
     }

@@ -46,12 +46,23 @@ public class BookServiceImpl implements IBookService {
     @Override
     @Transactional
     public Optional<Book> update(Book book) {
-        if (!checkDuplicatedBooks(book)){
+        if (!checkDuplicatedBooksOnUpdate(book)){
             return Optional.of(bookRepo.save(book));
         }
         return Optional.empty();
     }
 
+    private Boolean checkDuplicatedBooksOnUpdate (Book book){
+        Book currentBook = findById(book.getId()).get();
+        if (currentBook.getTitle().equalsIgnoreCase(book.getTitle())){
+            if (currentBook.getPublisher().getName().equals(book.getPublisher().getName())) {
+                if (book.getWriters().equals(book.getWriters())) {
+                    return false;
+                }
+            }
+        }
+        return checkDuplicatedBooks(book);
+    }
     private Boolean checkDuplicatedBooks (Book book){
 
         List<Book> books = bookRepo.findAllByTitleEqualsIgnoreCase(book.getTitle());
